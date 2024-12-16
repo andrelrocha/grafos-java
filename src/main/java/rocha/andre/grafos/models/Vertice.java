@@ -1,18 +1,22 @@
 package rocha.andre.grafos.models;
 
 import lombok.Getter;
-import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Vertice {
     private int id;
     private List<Aresta> arestasAdj;
+    public Cor cor;
+    public int distancia;
+    public Vertice pai;
 
     public Vertice(int id) {
         this.id = id;
         this.arestasAdj = new ArrayList<>();
+        this.cor = Cor.BRANCO;
+        this.distancia = Integer.MAX_VALUE;
+        this.pai = null;
     }
 
     public void adicionarAresta(Aresta aresta) {
@@ -21,19 +25,12 @@ public class Vertice {
         }
     }
 
+
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public List<Aresta> getArestasAdj() {
         return arestasAdj;
-    }
-
-    public void setArestasAdj(List<Aresta> arestasAdj) {
-        this.arestasAdj = arestasAdj;
     }
 }

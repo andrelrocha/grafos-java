@@ -1,9 +1,10 @@
 package rocha.andre.grafos.models;
 
 import lombok.Getter;
-import lombok.Setter;
 
-public class Aresta {
+@Getter
+public class Aresta implements Comparable<Aresta> {
+
     private Vertice origem;
     private Vertice destino;
     private int peso;
@@ -18,23 +19,16 @@ public class Aresta {
         return origem;
     }
 
-    public void setOrigem(Vertice origem) {
-        this.origem = origem;
-    }
-
     public Vertice getDestino() {
         return destino;
-    }
-
-    public void setDestino(Vertice destino) {
-        this.destino = destino;
     }
 
     public int getPeso() {
         return peso;
     }
 
-    public void setPeso(int peso) {
-        this.peso = peso;
+    @Override
+    public int compareTo(Aresta o) {
+        return Integer.compare(this.peso, o.peso);
     }
 }
