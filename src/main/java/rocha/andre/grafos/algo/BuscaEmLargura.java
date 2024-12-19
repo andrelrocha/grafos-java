@@ -1,9 +1,9 @@
 package rocha.andre.grafos.algo;
 
 import org.springframework.stereotype.Component;
-import rocha.andre.grafos.models.Aresta;
+import rocha.andre.grafos.models.Conexao;
 import rocha.andre.grafos.models.Cor;
-import rocha.andre.grafos.models.Vertice;
+import rocha.andre.grafos.models.CentroDados;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -12,24 +12,24 @@ import java.util.Queue;
 
 @Component
 public class BuscaEmLargura {
-    public List<Vertice> buscaEmLargura(Vertice vertice) {
+    public List<CentroDados> buscaEmLargura(CentroDados centroDados) {
         // Inicializa as listas de controle
-        List<Vertice> verticesVisitados = new ArrayList<>();
-        Queue<Vertice> fila = new LinkedList<>();
+        List<CentroDados> verticesVisitados = new ArrayList<>();
+        Queue<CentroDados> fila = new LinkedList<>();
 
         // Inicializa o vértice inicial
-        vertice.cor = Cor.CINZA;  // Marca o vértice inicial como CINZA
-        vertice.distancia = 0;  // Distância inicial é 0
-        fila.add(vertice);  // Coloca o vértice inicial na fila
-        verticesVisitados.add(vertice);  // Marca o vértice como visitado
+        centroDados.cor = Cor.CINZA;  // Marca o vértice inicial como CINZA
+        centroDados.distancia = 0;  // Distância inicial é 0
+        fila.add(centroDados);  // Coloca o vértice inicial na fila
+        verticesVisitados.add(centroDados);  // Marca o vértice como visitado
 
         // Enquanto a fila não estiver vazia, continua o processo de BFS
         while (!fila.isEmpty()) {
-            Vertice v = fila.poll();
+            CentroDados v = fila.poll();
 
             // Visita os vizinhos
-            for (Aresta a : v.getArestasAdj()) {
-                Vertice adj = a.getDestino();
+            for (Conexao a : v.getConexoes()) {
+                CentroDados adj = a.getDestino();
                 if (adj.cor == Cor.BRANCO) {  // Só visita vértices BRANCOS
                     adj.cor = Cor.CINZA;  // Marca o vértice como CINZA
                     adj.distancia = v.distancia + 1;  // A distância é a do pai + 1
