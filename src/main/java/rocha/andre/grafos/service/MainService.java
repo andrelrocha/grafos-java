@@ -7,7 +7,10 @@ import org.springframework.stereotype.Service;
 public class MainService {
 
     public void runMain() {
-        var primeiraQuestao = new PrimeiroExercicioService();
-        primeiraQuestao.primeiraQuestao();
+        //var primeiraQuestao = new PrimeiroExercicioService();
+        //var rede = primeiraQuestao.primeiraQuestao();
+
+        var segundaQuestao = new SegundoExercicioService();
+        segundaQuestao.segundaQuestao();
     }
 }

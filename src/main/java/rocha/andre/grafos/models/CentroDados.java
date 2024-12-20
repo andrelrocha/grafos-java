@@ -30,4 +30,15 @@ public class CentroDados {
     public List<Conexao> getConexoes() {
         return conexoes;
     }
+
+    @Override
+    public String toString() {
+        return "CentroDados{" +
+                "id=" + id +
+                ", conexoes=" + conexoes +
+                ", cor=" + cor +
+                ", distancia=" + distancia +
+                ", pai=" + pai +
+                '}';
+    }
 }

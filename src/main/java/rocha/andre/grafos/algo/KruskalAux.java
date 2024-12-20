@@ -1,6 +1,5 @@
 package rocha.andre.grafos.algo;
 
-import rocha.andre.grafos.models.CentroDados;
 import rocha.andre.grafos.models.Conexao;
 
 import java.util.*;

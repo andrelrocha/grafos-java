@@ -3,7 +3,9 @@ package rocha.andre.grafos.service;
 import org.springframework.stereotype.Service;
 import rocha.andre.grafos.models.Conexao;
 import rocha.andre.grafos.models.CentroDados;
+import rocha.andre.grafos.models.Rede;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,12 +16,17 @@ public class RedeService {
         }
     }
 
-    public void adicionarConexoes(Conexao conexao, List<Conexao> conexoes) {
-        if (!conexoes.contains(conexao)) {
-            conexoes.add(conexao);
-            conexao.getOrigem().adicionarConexao(conexao);
-            conexao.getDestino().adicionarConexao(conexao);
+    public void exibirGrafo(List<Conexao> conexoes) {
+        for (Conexao conexao : conexoes) {
+            System.out.println(conexao.getOrigem().getId() + " --- " + conexao.getCusto() + " --- " + conexao.getDestino().getId());
         }
+        System.out.println("\n-------------------\n");
+    }
+
+    public void adicionarConexoes(Conexao conexao, Rede rede) {
+        conexao.getOrigem().adicionarConexao(conexao);
+        conexao.getDestino().adicionarConexao(conexao);
+        rede.addConexao(conexao);
     }
 
     public void exibirRede(List<CentroDados> centrosDados, List<Conexao> conexoes) {

@@ -34,10 +34,9 @@ public class Conexao implements Comparable<Conexao> {
     }
 
     private boolean conexaoExiste(CentroDados origem, CentroDados destino, List<Conexao> conexoesExistentes) {
-        return conexoesExistentes.stream()
-                .anyMatch(conexao ->
-                        (conexao.getOrigem().getId() == origem.getId() && conexao.getDestino().getId() == destino.getId()) ||
-                                (conexao.getOrigem().getId() == destino.getId() && conexao.getDestino().getId() == origem.getId())
-                );
+        return conexoesExistentes.stream().anyMatch(conexao ->
+                (conexao.getOrigem().getId() == origem.getId() && conexao.getDestino().getId() == destino.getId()) ||
+                        (conexao.getOrigem().getId() == destino.getId() && conexao.getDestino().getId() == origem.getId())
+        );
     }
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Rede {
     private List<CentroDados> centroDados;
+
     private List<Conexao> conexoes;
 
     public Rede() {
@@ -22,5 +23,12 @@ public class Rede {
 
     public void setCentroDados(List<CentroDados> centroDados) {
         this.centroDados = centroDados;
+    }
+    public void setConexoes(List<Conexao> conexoes) {
+        this.conexoes = conexoes;
+    }
+
+    public void addConexao(Conexao conexao) {
+        this.conexoes.add(conexao);
     }
 }
