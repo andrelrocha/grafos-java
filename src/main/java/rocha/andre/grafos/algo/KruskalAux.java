@@ -1,74 +1,77 @@
 package rocha.andre.grafos.algo;
 
+import rocha.andre.grafos.models.CentroDados;
 import rocha.andre.grafos.models.Conexao;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class KruskalAux {
-    private int[] pai;
-    private int[] peso;
 
-    public KruskalAux(int tam) {
-        pai = new int[tam];
-        peso = new int[tam];
-
-        // Inicializa cada vértice para ser o líder de seu próprio conjunto
-        for (int i = 0; i < tam; i++) {
-            pai[i] = i;
-            peso[i] = 0;
-        }
-    }
-
-    // Método para encontrar o líder do conjunto, com compressão de caminho
-    public int busca(int x) {
-        if (pai[x] != x) {
-            pai[x] = busca(pai[x]);  // busca em recurssão
-        }
-        return pai[x];
-    }
-
-    // Método para unir dois conjuntos, com união por rank
-    public void union(int x, int y) {
-        int rootX = busca(x);
-        int rootY = busca(y);
-
-        if (rootX != rootY) {
-            // União por rank
-            if (peso[rootX] > peso[rootY]) {
-                pai[rootY] = rootX;
-            } else if (peso[rootX] < peso[rootY]) {
-                pai[rootX] = rootY;
-            } else {
-                pai[rootY] = rootX;
-                peso[rootX]++;  // Aumenta o rank se ambos os conjuntos tiverem o mesmo tamanho
-            }
-        }
-    }
-
-
-    List<Conexao> kruskal(int numVertices, List<Conexao> conexoes) {
+    public List<Conexao> kruskal(int numCentros, List<Conexao> conexoes) {
         List<Conexao> mst = new ArrayList<>();
-        KruskalAux kruskalAux = new KruskalAux(numVertices);
+        int[] conjunto = new int[numCentros]; // Representa o conjunto de cada vértice
 
-        // Ordena as arestas por peso
+        // Inicializa cada vértice para ser seu próprio conjunto
+        for (int i = 0; i < numCentros; i++) {
+            conjunto[i] = i;
+        }
+
+        // Ordena as conexões por peso
         Collections.sort(conexoes);
 
-        // Processa as arestas em ordem crescente
+        // Processa cada conexão em ordem crescente
         for (Conexao conexao : conexoes) {
             int origem = conexao.getOrigem().getId();
             int destino = conexao.getDestino().getId();
 
-            // Verifica se os vértices estão em conjuntos diferentes
-            if (kruskalAux.busca(origem) != kruskalAux.busca(destino)) {
-                mst.add(conexao);  // Adiciona a aresta à MST
+            // Verifica se origem e destino estão em conjuntos diferentes
+            if (conjunto[origem] != conjunto[destino]) {
+                mst.add(conexao); // Adiciona a conexão à MST
 
-                // União dos conjuntos
-                kruskalAux.union(origem, destino);
+                // Atualiza os conjuntos para unir origem e destino
+                int conjuntoAntigo = conjunto[destino];
+                int conjuntoNovo = conjunto[origem];
+                for (int i = 0; i < numCentros; i++) {
+                    if (conjunto[i] == conjuntoAntigo) {
+                        conjunto[i] = conjuntoNovo;
+                    }
+                }
             }
         }
 
         return mst;
     }
+
+    /*
+    public List<Conexao> construirRedeRobusta(int numVertices, List<Conexao> conexoes) {
+        // Primeiro, gera a árvore geradora mínima (MST)
+        var mst = kruskal(numVertices, conexoes);
+
+        // Cria uma lista de graus dos vértices
+        int[] grau = new int[numVertices];
+
+        // Preenche os graus dos vértices com as conexões da MST
+        for (Conexao conexao : mst) {
+            grau[conexao.getOrigem().getId()]++;
+            grau[conexao.getDestino().getId()]++;
+        }
+
+        // Agora, adiciona conexões extras para garantir que o grafo seja 2-conectado
+        // Adiciona conexões entre vértices que ainda possuem grau 1
+        for (int i = 0; i < numVertices; i++) {
+            for (int j = i + 1; j < numVertices; j++) {
+                if (grau[i] == 1 && grau[j] == 1) {
+                    // Se ambos os vértices têm grau 1, conecta-os
+                    mst.add(new Conexao(new CentroDados(i), new CentroDados(j), 1)); // Custo arbitrário
+                    grau[i]++;
+                    grau[j]++;
+                    break; // Já podemos parar de tentar conectar i com j
+                }
+            }
+        }
+
+        return mst;
+    }
+     */
+
 }

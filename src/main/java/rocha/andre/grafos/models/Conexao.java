@@ -1,13 +1,16 @@
 package rocha.andre.grafos.models;
 
-import java.util.Objects;
+import java.util.List;
 
 public class Conexao implements Comparable<Conexao> {
     private CentroDados origem;
     private CentroDados destino;
     private int custo;
 
-    public Conexao(CentroDados origem, CentroDados destino, int custo) {
+    public Conexao(CentroDados origem, CentroDados destino, int custo, List<Conexao> conexoesExistentes) {
+        if (conexaoExiste(origem, destino, conexoesExistentes)) {
+            throw new IllegalArgumentException("já existe conexao entre esses centros de dados.");
+        }
         this.origem = origem;
         this.destino = destino;
         this.custo = custo;
@@ -26,18 +29,15 @@ public class Conexao implements Comparable<Conexao> {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        Conexao other = (Conexao) obj;
-
-        // Verifica se os vértices são iguais, independente da ordem
-        return (Objects.equals(origem, other.origem) && Objects.equals(destino, other.destino)) ||
-                (Objects.equals(origem, other.destino) && Objects.equals(destino, other.origem));
-    }
-
-    @Override
     public int compareTo(Conexao o) {
         return Integer.compare(this.custo, o.custo);
+    }
+
+    private boolean conexaoExiste(CentroDados origem, CentroDados destino, List<Conexao> conexoesExistentes) {
+        return conexoesExistentes.stream()
+                .anyMatch(conexao ->
+                        (conexao.getOrigem().getId() == origem.getId() && conexao.getDestino().getId() == destino.getId()) ||
+                                (conexao.getOrigem().getId() == destino.getId() && conexao.getDestino().getId() == origem.getId())
+                );
     }
 }
