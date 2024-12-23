@@ -4,41 +4,41 @@ import rocha.andre.grafos.models.Conexao;
 
 import java.util.*;
 
-public class KruskalAux {
+public class Kruskal {
 
     public List<Conexao> kruskal(int numCentros, List<Conexao> conexoes) {
-        List<Conexao> conexoesrvoreGeradoraMinima = new ArrayList<>();
-        int[] conjunto = new int[numCentros]; // Representa o conjunto de cada vértice
+        List<Conexao> conexoesArvoreGeradoraMinima = new ArrayList<>();
 
-        // Inicializa cada vértice para ser seu próprio conjunto
+        var classes = new int[numCentros]; // Crie_Classe(v) para cada vértice
+
+        // Inicializa cada vértice para ser seu próprio classes
         for (int i = 0; i < numCentros; i++) {
-            conjunto[i] = i;
+            classes[i] = i;
         }
 
-        // Ordena as conexões por peso
+        // Ordena as conexões por custo usando o comparable, para processar cada conexão por ordem crescente de peso
         Collections.sort(conexoes);
 
-        // Processa cada conexão em ordem crescente
         for (Conexao conexao : conexoes) {
-            int origem = conexao.getOrigem().getId();
-            int destino = conexao.getDestino().getId();
+            var origem = conexao.getOrigem().getId();
+            var destino = conexao.getDestino().getId();
 
             // Verifica se origem e destino estão em conjuntos diferentes garantindo que não forme ciclos e quebre a árvore
-            if (conjunto[origem] != conjunto[destino]) {
-                conexoesrvoreGeradoraMinima.add(conexao); // Adiciona a conexão à MST
+            if (classes[origem] != classes[destino]) { //Se Classe(u) ≠ Classe(v)
+                conexoesArvoreGeradoraMinima.add(conexao); // Adiciona a conexão à MST - //A ← A ⋃ {uv}
 
-                // Atualiza os conjuntos para unir origem e destino
-                int conjuntoAntigo = conjunto[destino];
-                int conjuntoNovo = conjunto[origem];
+                // Atualiza os conjuntos para unir origem e destino //Une_Classe(u, v)
+                var classeAntiga = classes[destino];
+                var classeNova = classes[origem];
                 for (int i = 0; i < numCentros; i++) {
-                    if (conjunto[i] == conjuntoAntigo) {
-                        conjunto[i] = conjuntoNovo;
+                    if (classes[i] == classeAntiga) {
+                        classes[i] = classeNova;
                     }
                 }
             }
         }
 
-        return conexoesrvoreGeradoraMinima;
+        return conexoesArvoreGeradoraMinima;
     }
 
     /*

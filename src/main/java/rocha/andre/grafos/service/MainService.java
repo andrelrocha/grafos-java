@@ -11,6 +11,6 @@ public class MainService {
         //var rede = primeiraQuestao.primeiraQuestao();
 
         var segundaQuestao = new SegundoExercicioService();
-        segundaQuestao.segundaQuestao();
+        //segundaQuestao.segundaQuestao();
     }
 }

@@ -13,35 +13,31 @@ import java.util.Queue;
 @Component
 public class BuscaEmLargura {
     public List<CentroDados> buscaEmLargura(CentroDados centroDados) {
-        // Inicializa as listas de controle
-        List<CentroDados> verticesVisitados = new ArrayList<>();
-        Queue<CentroDados> fila = new LinkedList<>();
+        List<CentroDados> centroDadosVisitados = new ArrayList<>();
+        Queue<CentroDados> filaDeVisita = new LinkedList<>();
 
-        // Inicializa o vértice inicial
-        centroDados.cor = Cor.CINZA;  // Marca o vértice inicial como CINZA
-        centroDados.distancia = 0;  // Distância inicial é 0
-        fila.add(centroDados);  // Coloca o vértice inicial na fila
-        verticesVisitados.add(centroDados);  // Marca o vértice como visitado
+        centroDados.cor = Cor.CINZA;
+        centroDados.distancia = 0;
+        filaDeVisita.add(centroDados);
+        centroDadosVisitados.add(centroDados);
 
-        // Enquanto a fila não estiver vazia, continua o processo de BFS
-        while (!fila.isEmpty()) {
-            CentroDados v = fila.poll();
+        while (!filaDeVisita.isEmpty()) {
+            var centroDadosEmAnalise = filaDeVisita.poll();
 
-            // Visita os vizinhos
-            for (Conexao a : v.getConexoes()) {
-                CentroDados adj = a.getDestino();
-                if (adj.cor == Cor.BRANCO) {  // Só visita vértices BRANCOS
-                    adj.cor = Cor.CINZA;  // Marca o vértice como CINZA
-                    adj.distancia = v.distancia + 1;  // A distância é a do pai + 1
-                    adj.pai = v;  // O pai do vértice adjacente é o vértice atual
-                    fila.add(adj);  // Coloca o vértice na fila
-                    verticesVisitados.add(adj);  // Marca como visitado
+            for (Conexao c : centroDadosEmAnalise.getConexoes()) {
+                var vizinho = c.getDestino();
+                if (vizinho.cor == Cor.BRANCO) {
+                    vizinho.cor = Cor.CINZA;
+                    vizinho.distancia = centroDadosEmAnalise.distancia + 1;
+                    vizinho.pai = centroDadosEmAnalise;
+                    filaDeVisita.add(vizinho);
+                    centroDadosVisitados.add(vizinho);
                 }
             }
 
-            // Após visitar todos os vizinhos, marca o vértice como PRETO
-            v.cor = Cor.PRETO;
+            centroDadosEmAnalise.cor = Cor.PRETO;
         }
-        return verticesVisitados;
+        return centroDadosVisitados;
+
     }
 }

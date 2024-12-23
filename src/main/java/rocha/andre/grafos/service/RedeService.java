@@ -29,14 +29,14 @@ public class RedeService {
         rede.addConexao(conexao);
     }
 
-    public void exibirRede(List<CentroDados> centrosDados, List<Conexao> conexoes) {
+    public void exibirRede(Rede rede) {
         System.out.println("Centro de Dados:");
-        for (CentroDados centroDados : centrosDados) {
+        for (CentroDados centroDados : rede.getCentroDados()) {
             System.out.println("ID: " + centroDados.getId());
         }
 
         System.out.println("Conexões:");
-        for (Conexao conexao : conexoes) {
+        for (Conexao conexao : rede.getConexoes()) {
             System.out.println("Origem: " + conexao.getOrigem().getId() +
                     ", Destino: " + conexao.getDestino().getId() +
                     ", Custo: " + conexao.getCusto());
