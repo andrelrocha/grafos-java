@@ -32,6 +32,14 @@ public class CentroDados {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CentroDados that = (CentroDados) o;
+        return id == that.id;
+    }
+
+    @Override
     public String toString() {
         return "CentroDados{" +
                 "id=" + id +

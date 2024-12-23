@@ -19,7 +19,6 @@ public class GraphController {
     @GetMapping
     public List<CentroDadosDTO> getGraph() {
         var segundoExercicio = new SegundoExercicioService();
-        System.out.println(segundoExercicio);
-        return segundoExercicio.gerarGrafoJson();
+        return segundoExercicio.executar();
     }
 }
