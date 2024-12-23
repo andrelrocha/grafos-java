@@ -2,7 +2,6 @@ package rocha.andre.grafos.service;
 
 import rocha.andre.grafos.algo.BuscaEmLargura;
 import rocha.andre.grafos.algo.Kruskal;
-import rocha.andre.grafos.algo.KruskalAux;
 import rocha.andre.grafos.models.*;
 import org.springframework.stereotype.Service;
 
@@ -33,9 +32,6 @@ public class SegundoExercicioService {
             }
         }
 
-        // redeService.gerarGrafoJson(centroDados);
-
-        //iniciando questao
         var buscaEmLargura = new BuscaEmLargura();
         var centroDeDadosOrigem = rede.getCentroDados().get(0);
 
@@ -46,7 +42,7 @@ public class SegundoExercicioService {
         System.out.println("todos os vértices são conectados");
 
         var kruskal = new Kruskal();
-        redeService.exibirGrafo(rede.getConexoes());
+
         var listaDeConexoes = kruskal.kruskal(rede.getCentroDados().size(), rede.getConexoes());
 
         var listaDeCentroDados = kruskal.gerarCentroDados(listaDeConexoes);

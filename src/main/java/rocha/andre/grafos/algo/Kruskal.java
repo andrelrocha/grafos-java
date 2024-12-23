@@ -11,25 +11,21 @@ public class Kruskal {
     public List<Conexao> kruskal(int numCentros, List<Conexao> conexoes) {
         List<Conexao> conexoesArvoreGeradoraMinima = new ArrayList<>();
 
-        var classes = new int[numCentros]; // Crie_Classe(v) para cada vértice
+        var classes = new int[numCentros];
 
-        // Inicializa cada vértice para ser seu próprio classes
         for (int i = 0; i < numCentros; i++) {
             classes[i] = i;
         }
 
-        // Ordena as conexões por custo usando o comparable, para processar cada conexão por ordem crescente de peso
         Collections.sort(conexoes);
 
         for (Conexao conexao : conexoes) {
             var origem = conexao.getOrigem().getId();
             var destino = conexao.getDestino().getId();
 
-            // Verifica se origem e destino estão em conjuntos diferentes garantindo que não forme ciclos e quebre a árvore
-            if (classes[origem] != classes[destino]) { //Se Classe(u) ≠ Classe(v)
-                conexoesArvoreGeradoraMinima.add(conexao); // Adiciona a conexão à MST - //A ← A ⋃ {uv}
+            if (classes[origem] != classes[destino]) {
+                conexoesArvoreGeradoraMinima.add(conexao);
 
-                // Atualiza os conjuntos para unir origem e destino //Une_Classe(u, v)
                 var classeAntiga = classes[destino];
                 var classeNova = classes[origem];
                 for (int i = 0; i < numCentros; i++) {

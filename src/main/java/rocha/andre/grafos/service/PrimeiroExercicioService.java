@@ -16,7 +16,7 @@ public class PrimeiroExercicioService {
         if (query.equals("segundo")) {
             return segundoGrafo(rede);
         } else if (query.equals("terceiro")) {
-            return terceiroGrafo(rede);
+            return terceiroGrafo(segundoGrafo(rede));
         }
 
         return rede;

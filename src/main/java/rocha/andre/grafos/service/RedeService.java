@@ -49,27 +49,18 @@ public class RedeService {
         List<CentroDadosDTO> grafo = new ArrayList<>();
 
         for (CentroDados cd : centroDados) {
-            // Criando as adjacências para o centro de dados
             List<CentroDadosDTO.Adjacencia> adjacencias = new ArrayList<>();
 
             for (Conexao conexao : cd.getConexoes()) {
-                // Verificando se o destino é diferente do centro de dados atual para evitar auto-conexões
                 if (conexao.getDestino().getId() != cd.getId()) {
                     CentroDadosDTO.Adjacencia adjacencia = new CentroDadosDTO.Adjacencia(
                             conexao.getDestino().getId(), conexao.getCusto());
 
-                    // Verifica se a adjacência já foi adicionada (evitando duplicatas)
-                    boolean alreadyExists = adjacencias.stream()
-                            .anyMatch(adj -> adj.destino() == adjacencia.destino());
-
-                    if (!alreadyExists) {
-                        adjacencias.add(adjacencia);
-                    }
+                    adjacencias.add(adjacencia);
                 }
             }
 
-            // Criando o vértice para o centro de dados
-            CentroDadosDTO vertice = new CentroDadosDTO(cd.getId(), adjacencias);
+            var vertice = new CentroDadosDTO(cd.getId(), adjacencias);
             grafo.add(vertice);
         }
 
