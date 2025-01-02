@@ -5,6 +5,7 @@ import java.util.*;
 public class CentroDados {
     private int id;
     private List<Conexao> conexoes;
+
     public Cor cor;
     public int distancia;
     public CentroDados pai;
@@ -25,6 +26,10 @@ public class CentroDados {
 
     public int getId() {
         return id;
+    }
+
+    public Cor getCor() {
+        return cor;
     }
 
     public List<Conexao> getConexoes() {

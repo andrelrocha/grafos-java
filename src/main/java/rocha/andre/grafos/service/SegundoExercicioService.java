@@ -51,7 +51,7 @@ public class SegundoExercicioService {
     }
 
     public boolean eConexa(Rede rede) {
-        return rede.getCentroDados().stream().anyMatch(c -> c.cor.equals(Cor.PRETO));
+        return rede.getCentroDados().stream().allMatch(c -> c.cor.equals(Cor.PRETO));
     }
 
     private List<CentroDados> criarCentroDados(int n) {

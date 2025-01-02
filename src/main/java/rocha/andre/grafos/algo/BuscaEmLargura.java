@@ -33,11 +33,22 @@ public class BuscaEmLargura {
                     filaDeVisita.add(vizinho);
                     centroDadosVisitados.add(vizinho);
                 }
+
+                if (c.getOrigem() != null) {
+                    var origem = c.getOrigem();
+                    if (origem.cor == Cor.BRANCO) {
+                        origem.cor = Cor.CINZA;
+                        origem.distancia = centroDadosEmAnalise.distancia + 1;
+                        origem.pai = centroDadosEmAnalise;
+                        filaDeVisita.add(origem);
+                        centroDadosVisitados.add(origem);
+                    }
+                }
             }
 
             centroDadosEmAnalise.cor = Cor.PRETO;
         }
-        return centroDadosVisitados;
 
+        return centroDadosVisitados;
     }
 }

@@ -1,16 +1,13 @@
 package rocha.andre.grafos.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import rocha.andre.grafos.models.CentroDadosDTO;
-import rocha.andre.grafos.models.Conexao;
-import rocha.andre.grafos.models.Rede;
 import rocha.andre.grafos.service.PrimeiroExercicioService;
 import rocha.andre.grafos.service.RedeService;
 import rocha.andre.grafos.service.SegundoExercicioService;
+import rocha.andre.grafos.service.TerceiroExercicioService;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/")
@@ -29,5 +26,11 @@ public class GraphController {
     public List<CentroDadosDTO> getSegundoExercicio() {
         var segundoExercicio = new SegundoExercicioService();
         return segundoExercicio.executar();
+    }
+
+    @GetMapping("/terceiraquestao")
+    public List<CentroDadosDTO> terceiraQuestao() {
+        var terceiroExercicio = new TerceiroExercicioService();
+        return terceiroExercicio.executar();
     }
 }
