@@ -13,6 +13,11 @@ public class Rede {
         this.conexoes = new ArrayList<>();
     }
 
+    public Rede(List<CentroDados> centroDados, List<Conexao> conexoes) {
+        this.centroDados = centroDados;
+        this.conexoes = conexoes;
+    }
+
     public List<CentroDados> getCentroDados() {
         return centroDados;
     }
@@ -23,9 +28,6 @@ public class Rede {
 
     public void setCentroDados(List<CentroDados> centroDados) {
         this.centroDados = centroDados;
-    }
-    public void setConexoes(List<Conexao> conexoes) {
-        this.conexoes = conexoes;
     }
 
     public void addConexao(Conexao conexao) {

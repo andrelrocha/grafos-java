@@ -2,10 +2,7 @@ package rocha.andre.grafos.controller;
 
 import org.springframework.web.bind.annotation.*;
 import rocha.andre.grafos.models.CentroDadosDTO;
-import rocha.andre.grafos.service.PrimeiroExercicioService;
-import rocha.andre.grafos.service.RedeService;
-import rocha.andre.grafos.service.SegundoExercicioService;
-import rocha.andre.grafos.service.TerceiroExercicioService;
+import rocha.andre.grafos.service.*;
 
 import java.util.List;
 
@@ -32,5 +29,11 @@ public class GraphController {
     public List<CentroDadosDTO> terceiraQuestao() {
         var terceiroExercicio = new TerceiroExercicioService();
         return terceiroExercicio.executar();
+    }
+
+    @GetMapping("/quartaquestao")
+    public List<CentroDadosDTO> quartaQuestao() {
+        var quartoExercicio = new QuartoExercicioService();
+        return quartoExercicio.executar();
     }
 }

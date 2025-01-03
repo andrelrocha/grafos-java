@@ -44,6 +44,45 @@ public class RedeService {
         }
     }
 
+    public List<CentroDados> gerarCentroDados(List<Conexao> conexoes) {
+        List<CentroDados> centroDadosList = new ArrayList<>();
+
+        // Criação dos centros de dados e conexões
+        for (Conexao conexao : conexoes) {
+            var origemId = conexao.getOrigem().getId();
+            var destinoId = conexao.getDestino().getId();
+
+            // Verifica se o centro de dados de origem já foi adicionado, caso contrário, cria e adiciona
+            CentroDados origem = findCentroDadosById(centroDadosList, origemId);
+            if (origem == null) {
+                origem = new CentroDados(origemId);
+                centroDadosList.add(origem);
+            }
+
+            // Verifica se o centro de dados de destino já foi adicionado, caso contrário, cria e adiciona
+            CentroDados destino = findCentroDadosById(centroDadosList, destinoId);
+            if (destino == null) {
+                destino = new CentroDados(destinoId);
+                centroDadosList.add(destino);
+            }
+
+            // Adicionar a conexão nos centros de dados de origem e destino
+            origem.adicionarConexao(conexao);
+            destino.adicionarConexao(conexao);
+        }
+
+        return centroDadosList;
+    }
+
+    private CentroDados findCentroDadosById(List<CentroDados> centroDadosList, int id) {
+        for (CentroDados centro : centroDadosList) {
+            if (centro.getId() == id) {
+                return centro;
+            }
+        }
+        return null;
+    }
+
 
     public List<CentroDadosDTO> gerarGrafoJson(List<CentroDados> centroDados) {
         List<CentroDadosDTO> grafo = new ArrayList<>();

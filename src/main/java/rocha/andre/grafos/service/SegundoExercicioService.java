@@ -45,7 +45,7 @@ public class SegundoExercicioService {
 
         var listaDeConexoes = kruskal.kruskal(rede.getCentroDados().size(), rede.getConexoes());
 
-        var listaDeCentroDados = kruskal.gerarCentroDados(listaDeConexoes);
+        var listaDeCentroDados = redeService.gerarCentroDados(listaDeConexoes);
 
         return redeService.gerarGrafoJson(listaDeCentroDados);
     }

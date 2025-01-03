@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import rocha.andre.grafos.models.Conexao;
 import rocha.andre.grafos.models.Cor;
 import rocha.andre.grafos.models.CentroDados;
+import rocha.andre.grafos.models.Rede;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -50,5 +51,9 @@ public class BuscaEmLargura {
         }
 
         return centroDadosVisitados;
+    }
+
+    public boolean eConexa(Rede rede) {
+        return rede.getCentroDados().stream().allMatch(c -> c.cor.equals(Cor.PRETO));
     }
 }

@@ -23,14 +23,12 @@ public class TerceiroExercicioService {
             if (centroDados.get(i).getId() != centroDados.get(i + 1).getId()) {
                 var conexao = new Conexao(centroDados.get(i), centroDados.get(i + 1), i, rede.getConexoes());
                 redeService.adicionarConexoes(conexao, rede);
-                System.out.println("Conexões após adicionar entre " + centroDados.get(i).getId() + " e " + centroDados.get(i + 1).getId() + ":");
             }
 
             if (i + 2 < centroDados.size()) {
                 if (centroDados.get(i).getId() != centroDados.get(i + 2).getId()) {
                     var conexao = new Conexao(centroDados.get(i), centroDados.get(i + 2), i, rede.getConexoes());
                     redeService.adicionarConexoes(conexao, rede);
-                    System.out.println("Conexões após adicionar entre " + centroDados.get(i).getId() + " e " + centroDados.get(i + 2).getId() + ":");
                 }
             }
         }
@@ -45,10 +43,10 @@ public class TerceiroExercicioService {
 
         System.out.println("todos os vértices são conectados");
 
-        var conexaoParaTestar = rede.getConexoes().get(0);
-        var desconecta = verificaDesconexao(rede, conexaoParaTestar);
+        var conexao = rede.getConexoes().get(0);
+        var conexaoDesconectaRede = verificaDesconexao(rede, conexao);
 
-        if (desconecta) {
+        if (conexaoDesconectaRede) {
             System.out.println("A remoção da aresta desconecta a rede.");
         } else {
             System.out.println("A remoção da aresta não desconecta a rede.");
@@ -58,11 +56,7 @@ public class TerceiroExercicioService {
     }
 
     public boolean eConexa(Rede rede) {
-        return rede.getCentroDados().stream()
-                .peek(c -> {
-                    System.out.println("Centro de dados " + c.getId() + " tem cor: " + c.getCor());
-                })
-                .allMatch(c -> c.cor.equals(Cor.PRETO));
+        return rede.getCentroDados().stream().allMatch(c -> c.cor.equals(Cor.PRETO));
     }
 
 

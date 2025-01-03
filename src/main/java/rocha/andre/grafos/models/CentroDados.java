@@ -36,6 +36,18 @@ public class CentroDados {
         return conexoes;
     }
 
+    public void setCor(Cor cor) {
+        this.cor = cor;
+    }
+
+    public void setDistancia(int distancia) {
+        this.distancia = distancia;
+    }
+
+    public void setPai(CentroDados pai) {
+        this.pai = pai;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
